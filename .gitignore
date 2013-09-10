@@ -17,3 +17,4 @@
 # Test Related Files #
 /phpunit.xml
 /tests/system/webdriver/tests/logs/
+/nbproject/private/
