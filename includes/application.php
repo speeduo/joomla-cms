@@ -135,7 +135,7 @@ final class JSite extends JApplication
 		// Execute the parent initialise method.
 		parent::initialise($options);
 
-		// Load Library language And i don't understand :P
+		// Load Library language 
 		$lang = JFactory::getLanguage();
 
 		// Try the lib_joomla file in the current language (without allowing the loading of the file in the default language)

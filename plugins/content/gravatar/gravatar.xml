@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.1" type="plugin" group="content">
+<name>Gravatar</name>
+<creationDate>20/8/2013</creationDate>
+<author>Mohamed Infaz</author>
+<authorEmail>infaz9999@gmail.com</authorEmail>
+<authorUrl>www.cricketpissa.blogspot.com</authorUrl>
+<copyright>Copyright information</copyright>
+<license> GNU/GPL</license>
+<version>1.5</version>
+<description>The following Plugin retrieves information from your Gravatar account and show information in your Joomla Website </description>
