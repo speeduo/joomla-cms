@@ -35,12 +35,14 @@ Class PlgContentGravatar extends JPlugin
         $query	= $db->getQuery(true)       
 			->select('email')
 			->from('#__users join #__content')
-			->where("id='{$articleid}'");
+			->where($this->db->quoteName(id) .  ' = ' . $articleid);
         
         $db->setQuery($query);
 	
-        $result = $db->loadObject();
         
+        $result = $db->loadObject();
+        var_dump($result); 
+        die;
         if($result)
         {
             
