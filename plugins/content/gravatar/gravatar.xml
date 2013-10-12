@@ -5,7 +5,8 @@
 <author>Mohamed Infaz</author>
 <files>
     <filename>Gravatar.xml<></filename>
-    <filename>Gravatar.php</filename>
+    <filename plugin="Gravatar">Gravatar.php</filename>
+    <filename>Index.html</filename>
 </files>
 <authorEmail>infaz9999@gmail.com</authorEmail>
 <authorUrl>www.cricketpissa.blogspot.com</authorUrl>

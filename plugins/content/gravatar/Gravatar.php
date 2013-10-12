@@ -20,28 +20,44 @@ Class PlgContentGravatar extends JPlugin
     protected $autoloadLanguage = true;
     protected $default="localhost";
     protected $size=100;
+    const GRAVATAR_SERVER="http://www.gravatar.com/avatar/";
+
+
     
-    
-    
-    public function onContentBeforeDisplay($context, &$row, &$params, $page=0)
+    public function onContentBeforeDisplay($context, &$row, &$params, $page=0,$article, $limitstart)
     {
+        
         $db=JFactory::getDbo();
+        
+        $jinput=JFactory::getApplication()->input;
+        
+        $articleid=$article->id;
+        
         $query	= $db->getQuery(true)       
 			->select('email')
-			->from('#__users')
-			->where('username=' . $db->quote($credentials['username']));
+			->from('#__users join #__content')
+			->where('asset_id=' .$articleid);
+        
         $db->setQuery($query);
-	$result = $db->loadObject();
+	
+        $result = $db->loadObject();
         
         if($result)
         {
+            
             $emailid=$result->email;
             
-            
         }
-        $gravurl="http://www.gravatar.com/avatar/" . md5( strtolower( trim( $emailid ) ) )."?d=".urlencode( $default )."&s=".$size;
         
+        $gravurl=GRAVATAR_SERVER.md5( strtolower( trim( $emailid ) ) )."?d=".urlencode( $default )."&s=".$size;
+        
+        $str=  file_get_contents(GRAVATAR_SERVER.md5($emailid)."php");
+        
+        $profile=  unserialize($str);
+        
+         
     }
+        
         
         
         
