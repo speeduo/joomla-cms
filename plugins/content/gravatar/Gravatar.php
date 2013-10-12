@@ -21,14 +21,13 @@ Class PlgContentGravatar extends JPlugin
     protected $default="localhost";
     protected $size=100;
     const GRAVATAR_SERVER="http://www.gravatar.com/avatar/";
-
+    
 
     
     public function onContentBeforeDisplay($context, &$row, &$params, $page=0,$article, $limitstart)
     {
         
         $db=JFactory::getDbo();
-        
         $jinput=JFactory::getApplication()->input;
         
         $articleid=$article->id;
@@ -55,6 +54,16 @@ Class PlgContentGravatar extends JPlugin
         
         $profile=  unserialize($str);
         
+         if ( is_array( $profile ) && isset( $profile['entry'] ) )
+         {
+         
+                $name=$profile['entry'][0]['displayName'];   //Displaying My name
+                echo $name;
+                $myemail=$profile['entry'][0]['emails'][0]['value'];    //Displaying my email
+                
+                $im_accounts=$profile['entry'][0]['ims'][0]['value'];   //Displaying my Ims accounts
+                
+         }
          
     }
         
