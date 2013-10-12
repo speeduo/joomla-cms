@@ -18,7 +18,7 @@ defined('_JEXEC') or die; // Stopping Unauthorized access
 Class PlgContentGravatar extends JPlugin
 {
     protected $autoloadLanguage = true;
-    protected $size=250;
+    protected $size=300;
     const GRAVATAR_SERVER="http://www.gravatar.com/avatar/";
     
 
@@ -47,10 +47,11 @@ Class PlgContentGravatar extends JPlugin
             $emailid=$result->email;
             
         }
+        echo $emailid;
         
-        $gravurl=GRAVATAR_SERVER.md5( strtolower( trim( $emailid ) ) )."?d="."&s=".$size;
+        $gravurl="http://www.gravatar.com/avatar/".md5( strtolower( trim( $emailid )))."&s=".$size;
         
-        $str=  file_get_contents(GRAVATAR_SERVER.md5($emailid)."php");
+        $str=  file_get_contents("http://www.gravatar.com/".md5($emailid).".php");
         
         $profile=  unserialize($str);
         
@@ -60,11 +61,17 @@ Class PlgContentGravatar extends JPlugin
                 $name=$profile['entry'][0]['displayName'];   //Displaying My name
                 echo $name;
                 $myemail=$profile['entry'][0]['emails'][0]['value'];    //Displaying my email
-                
+                echo $myemail;
                 $im_accounts=$profile['entry'][0]['ims'][0]['value'];   //Displaying my Ims accounts
-                
+                echo $im_accounts;
          }
-         
+         else
+         {
+            
+             echo '<img src=' . $grav_url  . 'alt="" />';
+            
+             
+         }    
     }
         
         
