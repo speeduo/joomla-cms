@@ -76,8 +76,8 @@ Class PlgContentGravatar extends JPlugin
          else
          {
             
-             echo '<img src=' . $grav_url  . 'alt="" />';
-            
+             //echo '<img src=' . $grav_url  . 'alt="" />';
+            echo '<img src="' . $grav_url . '" alt =""/>';
              
          }    
     }
