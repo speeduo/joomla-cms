@@ -77,7 +77,7 @@ Class PlgContentGravatar extends JPlugin
          {
             
              //echo '<img src=' . $grav_url  . 'alt="" />';
-            echo '<img src="' . "https://2.gravatar.com/avatar/7f21fabe666713f3825297e6577a396c" . '" alt =""/>';
+            echo '<img src="' . "http://en.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e.php" . '" alt =""/>';
              
          }    
     }
