@@ -25,9 +25,9 @@ Class PlgContentGravatar extends JPlugin
     
     public function onContentBeforeDisplay($context, &$row, &$params, $page=0)
     {
-    if($context==com_content.Article)
+    if($context=='com_content.featured')
         {
-    
+        
             $size=$this->params->get('size',100);
             $emailid=$row->author_email;
         
@@ -47,10 +47,10 @@ Class PlgContentGravatar extends JPlugin
                 $grav_imghtml = JHtml::_('image', $gravurl, JText::_('MY_AVATAR'), null, true);
                 $html[] = '<span class="gravatar_image">';
                 $html[] = '</span>';
-                $html[] ='<img src="' . "$grav_imghtml". '" alt =""/>';
-                $html[]=  implode(" ", $name);
-                $html[]=  implode(" ",$myemail);
-                $html[]= implode(" ", $im_accounts);
+                $html[] ='<img src="' . $grav_imghtml. '" alt =""/>';
+                $html[]= $name;
+                $html[]= $myemail;
+                $html[]= $im_accounts;
                 
                 /*
                 echo '<img src="' . "$gravurl" . '" alt =""/>';
@@ -72,15 +72,15 @@ Class PlgContentGravatar extends JPlugin
              $default_url="http://www.gravatar.com/avatar/".md5( strtolower( trim( $emailid ) ) );
              $selection=  $this->params->get('default','identicon');
              $default_url=$default_url."?d=".$selection;
-             echo '<img src="' . "$default_url". '" alt =""/>';
+             //echo '<img src="' . "$default_url". '" alt =""/>';
              $grav_defaulthtml = JHtml::_('image', $default_url, JText::_('MY_AVATAR'), null, true);
              $html[] = '<span class="gravatar">';
              $html[] = '</span>';
-             $html[] ='<img src="' . "$default_url". '" alt =""/>';
+             $html[] ='<img src="' . $grav_defaulthtml. '" alt =""/>';
              
             }    
         }
-         return $html;
+        return implode(" ", $html);
     }
         
 }
