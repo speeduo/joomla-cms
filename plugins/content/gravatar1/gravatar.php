@@ -80,11 +80,10 @@ Class PlgContentGravatar extends JPlugin
          else
          {
             
-<<<<<<< HEAD
+
              echo  'img  src="' . $grav_url . '"alt="" />';
-=======
-             echo '<img src=' . $grav_url  . 'alt="" />';
->>>>>>> 0e5bc394483cf56348da5b9145c2a383ae3a506c
+
+
             
              
          }    
