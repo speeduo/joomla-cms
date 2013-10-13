@@ -20,7 +20,7 @@ Class PlgContentGravatar extends JPlugin
     protected $autoloadLanguage = true;
     protected $size=250;
     const GRAVATAR_SERVER="http://www.gravatar.com/avatar/";
-    protected $default="localhost";
+    protected $default="http://www.gravatar.com/avatar";
 
     
     public function onContentBeforeDisplay($context, &$row, &$params, $page=0)
@@ -77,7 +77,7 @@ Class PlgContentGravatar extends JPlugin
          {
             
              //echo '<img src=' . $grav_url  . 'alt="" />';
-            echo '<img src="' . $grav_url . '" alt =""/>';
+            echo '<img src="' . "https://2.gravatar.com/avatar/7f21fabe666713f3825297e6577a396c" . '" alt =""/>';
              
          }    
     }
