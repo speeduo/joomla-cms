@@ -23,25 +23,28 @@ Class PlgContentGravatar extends JPlugin
     
 
     
-    public function onContentBeforeDisplay($context,&$params, $page=0,$limitstart)
+    public function onContentBeforeDisplay($context, &$row, &$params, $page=0)
     {
         
         $db=JFactory::getDbo();
         //$jinput=JFactory::getApplication()->input;
         
         //$user_id=(int)$article->created_by; 
+        
         $id=JFactory::getApplication()->input->getInt('id');
         $article = JTable::getInstance('content');
         $article->load($id);
         $created_user_id = $article->created_by;
         echo $created_user_id; 
         
-        $query	= $db->getQuery(true)       
-			->select('email')
-			->from('#__users')
-                        ->where($db->quoteName('id') .  " = ".$db->quoteName('641'));
+      
         
-        $db->setQuery($query);
+        $query = $db->getQuery(true);
+        $query->select ('email');
+        $query->from($db->quoteName('#__users'));
+        $query->where($db->quoteName('id').  " = " .$created_user_id);  
+        
+        $db->execute($query);
 	
         echo GRAVATAR_SERVER;
         $result = $db->loadObject();
