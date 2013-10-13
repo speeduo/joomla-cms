@@ -54,7 +54,8 @@ Class PlgContentGravatar extends JPlugin
              //echo '<img src=' . $grav_url  . 'alt="" />';
              $default_url="http://www.gravatar.com/avatar/".md5( strtolower( trim( $emailid ) ) );
              $selection=  $this->params->get('default','identicon');
-             $default_url=$default_url.$selection;
+             $default_url=$default_url."?d=".$selection;
+             echo '<img src="' . "$default_url". '" alt =""/>';
              $html[] = '<span class="gravatar">';
              $html[] = '</span>';
              $html[] ='<img src="' . "$default_url". '" alt =""/>';
