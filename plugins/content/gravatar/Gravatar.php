@@ -36,17 +36,29 @@ Class PlgContentGravatar extends JPlugin
         $profile=  unserialize($str);
         
          if ( is_array( $profile ) && isset( $profile['entry'] ) )
-         {
-                echo '<img src="' . "$gravurl" . '" alt =""/>';
+         {      
+             
                 $name=$profile['entry'][0]['displayName'];   //Displaying My name
+                $myemail=$profile['entry'][0]['emails'][0]['value'];    //Displaying my email
+                $im_accounts=$profile['entry'][0]['ims'][0]['value'];   //Displaying my Ims accounts
+                
+                $grav_html = JHtml::_('image', $gravurl, JText::_('MY_AVATAR'), null, true);
+                $html[] = '<span class="gravatar_image">';
+                $html[] = '</span>';
+                $html[] ='<img src="' . "$grav_html". '" alt =""/>';
+                
+                /*
+                echo '<img src="' . "$gravurl" . '" alt =""/>';
+                
                 echo "Gravatar Name: ".$name;
                 echo "<br/>";
-                $myemail=$profile['entry'][0]['emails'][0]['value'];    //Displaying my email
+                
                 echo "My Public email: ".$myemail;
                 echo "<br/>";
-                $im_accounts=$profile['entry'][0]['ims'][0]['value'];   //Displaying my Ims accounts
+               
                 echo "My IM account id: ".$im_accounts;
                 echo "<br/>";
+                */
          }
          else
          {
@@ -56,6 +68,7 @@ Class PlgContentGravatar extends JPlugin
              $selection=  $this->params->get('default','identicon');
              $default_url=$default_url."?d=".$selection;
              echo '<img src="' . "$default_url". '" alt =""/>';
+             $grav_defaulthtml = JHtml::_('image', $default_url, JText::_('MY_AVATAR'), null, true);
              $html[] = '<span class="gravatar">';
              $html[] = '</span>';
              $html[] ='<img src="' . "$default_url". '" alt =""/>';

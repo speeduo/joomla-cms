@@ -28,6 +28,7 @@
                     <option value="retro">retro</option>
                     <option value="blank">blank</option>
                 </field>
+                
             </fieldset>
 	</fields>
 </config>
