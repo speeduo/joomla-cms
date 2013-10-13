@@ -25,27 +25,32 @@ Class PlgContentGravatar extends JPlugin
     
     public function onContentBeforeDisplay($context, &$row, &$params, $page=0)
     {
+    if($context==com_content.Article)
+        {
+    
+            $size=$this->params->get('size',100);
+            $emailid=$row->author_email;
         
-        $size=$this->params->get('size',100);
-        $emailid=$row->author_email;
+            $gravurl="http://www.gravatar.com/avatar/".md5( strtolower( trim( $emailid ) ) )."?d=".urlencode($this->default )."&s=".$size;
         
-        $gravurl="http://www.gravatar.com/avatar/".md5( strtolower( trim( $emailid ) ) )."?d=".urlencode($this->default )."&s=".$size;
+            $str=  file_get_contents("http://www.gravatar.com/".md5($emailid).".php");
         
-        $str=  file_get_contents("http://www.gravatar.com/".md5($emailid).".php");
+            $profile=  unserialize($str);
         
-        $profile=  unserialize($str);
-        
-         if ( is_array( $profile ) && isset( $profile['entry'] ) )
-         {      
+            if ( is_array( $profile ) && isset( $profile['entry'] ) )
+            {      
              
                 $name=$profile['entry'][0]['displayName'];   //Displaying My name
                 $myemail=$profile['entry'][0]['emails'][0]['value'];    //Displaying my email
                 $im_accounts=$profile['entry'][0]['ims'][0]['value'];   //Displaying my Ims accounts
                 
-                $grav_html = JHtml::_('image', $gravurl, JText::_('MY_AVATAR'), null, true);
+                $grav_imghtml = JHtml::_('image', $gravurl, JText::_('MY_AVATAR'), null, true);
                 $html[] = '<span class="gravatar_image">';
                 $html[] = '</span>';
-                $html[] ='<img src="' . "$grav_html". '" alt =""/>';
+                $html[] ='<img src="' . "$grav_imghtml". '" alt =""/>';
+                $html[]=  implode(" ", $name);
+                $html[]=  implode(" ",$myemail);
+                $html[]= implode(" ", $im_accounts);
                 
                 /*
                 echo '<img src="' . "$gravurl" . '" alt =""/>';
@@ -59,9 +64,9 @@ Class PlgContentGravatar extends JPlugin
                 echo "My IM account id: ".$im_accounts;
                 echo "<br/>";
                 */
-         }
-         else
-         {
+            }
+            else
+            {
             
              //echo '<img src=' . $grav_url  . 'alt="" />';
              $default_url="http://www.gravatar.com/avatar/".md5( strtolower( trim( $emailid ) ) );
@@ -73,8 +78,11 @@ Class PlgContentGravatar extends JPlugin
              $html[] = '</span>';
              $html[] ='<img src="' . "$default_url". '" alt =""/>';
              
-         }    
+            }    
+        }
+         return $html;
     }
         
 }
-?>
+
+
