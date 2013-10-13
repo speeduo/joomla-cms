@@ -18,7 +18,7 @@ defined('_JEXEC') or die; // Stopping Unauthorized access
 Class PlgContentGravatar extends JPlugin
 {
     protected $autoloadLanguage = true;
-    protected $size=200;
+   
     const GRAVATAR_SERVER="http://www.gravatar.com/avatar/";
     protected $default="http://www.gravatar.com/avatar";
 
@@ -26,10 +26,10 @@ Class PlgContentGravatar extends JPlugin
     public function onContentBeforeDisplay($context, &$row, &$params, $page=0)
     {
         
-       
+        $size=$this->params->get('size',100);
         $emailid=$row->author_email;
         
-        $gravurl="http://www.gravatar.com/avatar/".md5( strtolower( trim( $emailid ) ) )."?d=".urlencode($this->default )."&s=".  $this->size;
+        $gravurl="http://www.gravatar.com/avatar/".md5( strtolower( trim( $emailid ) ) )."?d=".urlencode($this->default )."&s=".$size;
         
         $str=  file_get_contents("http://www.gravatar.com/".md5($emailid).".php");
         
@@ -52,15 +52,15 @@ Class PlgContentGravatar extends JPlugin
          {
             
              //echo '<img src=' . $grav_url  . 'alt="" />';
-            echo '<img src="' . "http://en.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e.php" . '" alt =""/>';
+             $default_url="http://www.gravatar.com/avatar/".md5( strtolower( trim( $emailid ) ) );
+             $selection=  $this->params->get('default','identicon');
+             $default_url=$default_url.$selection;
+             $html[] = '<span class="gravatar">';
+             $html[] = '</span>';
+             $html[] ='<img src="' . "$default_url". '" alt =""/>';
              
          }    
     }
         
-       
-        
-        
 }
-         
-        
 ?>

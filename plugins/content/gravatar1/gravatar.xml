@@ -15,8 +15,20 @@
 
 
 <config>
-	<fields name="params">
-	</fields>
+    
+	<field name="params">
+            <fieldset name="basic">
+                <field name="Size" description="PLG_USER_GRAVATAR_DESC" label="PLG_USER_GRAVATAR_LABEL" type="Text">
+                </field>
+                <field name="Default" description="PLF_USER_GRAVATAR_DESC" label="PLG_USER_GRAVATAR_LABEL" type="List">
+                    <option>value=</option>
+                </field>
+            </fieldset>
+	</field>
+        
+        
+        
+    
 </config>
 <description>The following Plugin retrieves information from your Gravatar account and show information in your Joomla Website </description>
 </extension>
