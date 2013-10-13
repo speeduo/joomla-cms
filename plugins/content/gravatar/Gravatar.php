@@ -20,14 +20,14 @@ Class PlgContentGravatar extends JPlugin
     protected $autoloadLanguage = true;
     protected $size=250;
     const GRAVATAR_SERVER="http://www.gravatar.com/avatar/";
-    
+    protected $default="localhost";
 
     
     public function onContentBeforeDisplay($context, &$row, &$params, $page=0)
     {
         
         $db=JFactory::getDbo();
-        //$jinput=JFactory::getApplication()->input;
+        $jinput=JFactory::getApplication()->input;
         
         //$user_id=(int)$article->created_by; 
         
@@ -36,7 +36,7 @@ Class PlgContentGravatar extends JPlugin
         $article->load($id);
         $created_user_id = $article->created_by;
         echo $created_user_id; 
-        
+        var_dump($created_user_id);
       
         
         $query = $db->getQuery(true);
@@ -57,7 +57,7 @@ Class PlgContentGravatar extends JPlugin
         }
         echo $emailid;
         
-        $gravurl="http://www.gravatar.com/avatar/".md5( strtolower( trim( $emailid ) ) )."&s=".$size;
+        $gravurl="http://www.gravatar.com/avatar/".md5( strtolower( trim( $emailid ) ) )."?d=".urlencode( $default )."&s=".$size;
         
         $str=  file_get_contents("http://www.gravatar.com/".md5($emailid).".php");
         
