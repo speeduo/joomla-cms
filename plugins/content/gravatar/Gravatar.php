@@ -44,10 +44,11 @@ Class PlgContentGravatar extends JPlugin
                 $myemail=$profile['entry'][0]['emails'][0]['value'];    //Displaying my email
                 $im_accounts=$profile['entry'][0]['ims'][0]['value'];   //Displaying my Ims accounts
                 
-                $grav_imghtml = JHtml::_('image', $gravurl, JText::_('MY_AVATAR'), null, true);
+                $html[] = JHtml::_('image', $gravurl, JText::_('MY_AVATAR'), null, true);
                 $html[] = '<span class="gravatar_image">';
+                
                 $html[] = '</span>';
-                $html[] ='<img src="' . $grav_imghtml. '" alt =""/>';
+                
                 $html[]= $name;
                 $html[]= $myemail;
                 $html[]= $im_accounts;
@@ -76,7 +77,7 @@ Class PlgContentGravatar extends JPlugin
              $grav_defaulthtml = JHtml::_('image', $default_url, JText::_('MY_AVATAR'), null, true);
              $html[] = '<span class="gravatar">';
              $html[] = '</span>';
-             $html[] ='<img src="' . $grav_defaulthtml. '" alt =""/>';
+             
              
             }    
         }
