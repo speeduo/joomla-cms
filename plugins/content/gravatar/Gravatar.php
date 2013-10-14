@@ -37,7 +37,7 @@ Class PlgContentGravatar extends JPlugin
             
             if ($array[0]['scheme']=='http')
             {
-                $html[]=buildHTML($this->GRAVATAR_SERVER,  $this->default,$emailid,$size);
+                $html[]=  $this->buildHTML($this->GRAVATAR_SERVER,  $this->default,$emailid,$size);
                 
                 
             }
@@ -45,7 +45,7 @@ Class PlgContentGravatar extends JPlugin
             if($array[0]['scheme']=='https')
             {
                
-                $html[]=buildHTML($this->GRAVATAR_SECURE_SERVER,  $this->securedefault,$emailid,$size);
+                $html[]=  $this->buildHTML($this->GRAVATAR_SECURE_SERVER,  $this->securedefault,$emailid,$size);
                 
                 
             }
