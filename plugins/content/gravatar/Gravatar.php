@@ -21,33 +21,23 @@ Class PlgContentGravatar extends JPlugin
     protected $defaultsize=100;
     protected $GRAVATAR_SERVER="http://www.gravatar.com/avatar/";
     protected $default="http://www.gravatar.com/";
+    protected $GRAVATAR_SECURE_SERVER="https://secure.gravatar.com/avatar";
+    protected $securedefault="https://secure.gravatar.com/";
+    protected $uri;
 
-    
+
     public function onContentBeforeDisplay($context, &$row, &$params, $page=0)
     {
     if($context=='com_content.featured')
         {
-        
-            $size=$this->params->get('size',  $this->defaultsize);
+            $uri=new JUri();
+            $this->uri->getScheme();
+            $size=$this->params->get('size',$this->defaultsize);
             $emailid=$row->author_email;
             
             $gravurl=  $this->GRAVATAR_SERVER.md5( strtolower( trim( $emailid ) ) )."?d=".urlencode($this->default )."&s=".$size;
-            /*
-            try{
-                
-                
-            }
-            catch (Exception $e){
-                //echo '<img src=' . $grav_url  . 'alt="" />';
-             $default_url="http://www.gravatar.com/avatar/".md5( strtolower( trim( $emailid ) ) );
-             $selection=  $this->params->get('default','identicon');
-             $default_url=$default_url."?d=".$selection;
-             //echo '<img src="' . "$default_url". '" alt =""/>';
-             $html[] = JHtml::_('image', $default_url, JText::_('MY_AVATAR'), null, true);
-             $html[] = '<span class="gravatar">';
-             $html[] = '</span>';
-            }
-            */
+            
+           
             
             $str=  file_get_contents("$this->default".md5($emailid).".php");
             $profile=  unserialize($str);
@@ -77,19 +67,7 @@ Class PlgContentGravatar extends JPlugin
                 $html[]= "My IM account id: ".$im_accounts;
                 $html[]='</span>';
                 
-                
-                /*
-                echo '<img src="' . "$gravurl" . '" alt =""/>';
-                
-                echo "Gravatar Name: ".$name;
-                echo "<br/>";
-                
-                echo "My Public email: ".$myemail;
-                echo "<br/>";
-               
-                echo "My IM account id: ".$im_accounts;
-                echo "<br/>";
-                */
+             
             }
             
             else
