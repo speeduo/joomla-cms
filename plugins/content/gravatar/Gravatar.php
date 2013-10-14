@@ -107,7 +107,7 @@ Class PlgContentGravatar extends JPlugin
              
                 } 
                 
-        return $html;
+         return implode("</br> ", $html);
         
     }
         
