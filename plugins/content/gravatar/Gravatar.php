@@ -18,9 +18,9 @@ defined('_JEXEC') or die; // Stopping Unauthorized access
 Class PlgContentGravatar extends JPlugin
 {
     protected $autoloadLanguage = true;
-   
-    const GRAVATAR_SERVER="http://www.gravatar.com/avatar/";
-    protected $default="http://www.gravatar.com/avatar";
+    protected $defaultsize=100;
+    protected $GRAVATAR_SERVER="http://www.gravatar.com/avatar/";
+    protected $default="http://www.gravatar.com/";
 
     
     public function onContentBeforeDisplay($context, &$row, &$params, $page=0)
@@ -28,10 +28,10 @@ Class PlgContentGravatar extends JPlugin
     if($context=='com_content.featured')
         {
         
-            $size=$this->params->get('size',100);
+            $size=$this->params->get('size',  $this->defaultsize);
             $emailid=$row->author_email;
             
-            $gravurl="http://www.gravatar.com/avatar/".md5( strtolower( trim( $emailid ) ) )."?d=".urlencode($this->default )."&s=".$size;
+            $gravurl=  $this->GRAVATAR_SERVER.md5( strtolower( trim( $emailid ) ) )."?d=".urlencode($this->default )."&s=".$size;
             /*
             try{
                 
@@ -49,7 +49,7 @@ Class PlgContentGravatar extends JPlugin
             }
             */
             
-            $str=  file_get_contents("http://www.gravatar.com/".md5($emailid).".php");
+            $str=  file_get_contents("$this->default".md5($emailid).".php");
             $profile=  unserialize($str);
         
             if ( is_array( $profile ) && isset( $profile['entry'] ) )
@@ -66,15 +66,15 @@ Class PlgContentGravatar extends JPlugin
                 
                 
                 $html[]='<span class="gravatar_name" style="color:blue">';
-                $html[]= $name;
+                $html[]= "My Gravatar Name: ".$name;
                 $html[]='</span>';
                 
                 $html[]='<span class="My public Email" style="color:blue">';
-                $html[]= $myemail;
+                $html[]= "My public Email: ".$myemail;
                 $html[]='</span>';
                 
                 $html[]='<span class="gravatar_im accounts" style="color:blue">';
-                $html[]= $im_accounts;
+                $html[]= "My IM account id: ".$im_accounts;
                 $html[]='</span>';
                 
                 
@@ -96,7 +96,7 @@ Class PlgContentGravatar extends JPlugin
             {
             
              //echo '<img src=' . $grav_url  . 'alt="" />';
-             $default_url="http://www.gravatar.com/avatar/".md5( strtolower( trim( $emailid ) ) );
+             $default_url="$this->GRAVATAR_SERVER".md5( strtolower( trim( $emailid ) ) );
              $selection=  $this->params->get('default','identicon');
              $default_url=$default_url."?d=".$selection;
              //echo '<img src="' . "$default_url". '" alt =""/>';
@@ -108,7 +108,7 @@ Class PlgContentGravatar extends JPlugin
             } 
                
         }
-        return implode("\n ", $html);
+        return implode("</br> ", $html);
     }
         
 }
