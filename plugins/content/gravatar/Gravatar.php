@@ -30,11 +30,26 @@ Class PlgContentGravatar extends JPlugin
         
             $size=$this->params->get('size',100);
             $emailid=$row->author_email;
-        
+            
             $gravurl="http://www.gravatar.com/avatar/".md5( strtolower( trim( $emailid ) ) )."?d=".urlencode($this->default )."&s=".$size;
-        
+            /*
+            try{
+                
+                
+            }
+            catch (Exception $e){
+                //echo '<img src=' . $grav_url  . 'alt="" />';
+             $default_url="http://www.gravatar.com/avatar/".md5( strtolower( trim( $emailid ) ) );
+             $selection=  $this->params->get('default','identicon');
+             $default_url=$default_url."?d=".$selection;
+             //echo '<img src="' . "$default_url". '" alt =""/>';
+             $html[] = JHtml::_('image', $default_url, JText::_('MY_AVATAR'), null, true);
+             $html[] = '<span class="gravatar">';
+             $html[] = '</span>';
+            }
+            */
+            
             $str=  file_get_contents("http://www.gravatar.com/".md5($emailid).".php");
-        
             $profile=  unserialize($str);
         
             if ( is_array( $profile ) && isset( $profile['entry'] ) )
@@ -49,9 +64,19 @@ Class PlgContentGravatar extends JPlugin
                 
                 $html[] = '</span>';
                 
+                
+                $html[]='<span class="gravatar_name" style="color:blue">';
                 $html[]= $name;
+                $html[]='</span>';
+                
+                $html[]='<span class="My public Email" style="color:blue">';
                 $html[]= $myemail;
+                $html[]='</span>';
+                
+                $html[]='<span class="gravatar_im accounts" style="color:blue">';
                 $html[]= $im_accounts;
+                $html[]='</span>';
+                
                 
                 /*
                 echo '<img src="' . "$gravurl" . '" alt =""/>';
@@ -66,6 +91,7 @@ Class PlgContentGravatar extends JPlugin
                 echo "<br/>";
                 */
             }
+            
             else
             {
             
@@ -74,14 +100,15 @@ Class PlgContentGravatar extends JPlugin
              $selection=  $this->params->get('default','identicon');
              $default_url=$default_url."?d=".$selection;
              //echo '<img src="' . "$default_url". '" alt =""/>';
-             $grav_defaulthtml = JHtml::_('image', $default_url, JText::_('MY_AVATAR'), null, true);
+             $html[] = JHtml::_('image', $default_url, JText::_('MY_AVATAR'), null, true);
              $html[] = '<span class="gravatar">';
              $html[] = '</span>';
              
              
-            }    
+            } 
+               
         }
-        return implode(" ", $html);
+        return implode("\n ", $html);
     }
         
 }
