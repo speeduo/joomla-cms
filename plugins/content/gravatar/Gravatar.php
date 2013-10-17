@@ -35,6 +35,7 @@ Class PlgContentGravatar extends JPlugin
             $size=$this->params->get('size',$this->defaultsize);
             $emailid=$row->author_email;
             
+            
             if ($array[0]['scheme']=='http')
             {
                 $html[]=  $this->buildHTML($this->GRAVATAR_SERVER,  $this->default,$emailid,$size);
@@ -61,7 +62,7 @@ Class PlgContentGravatar extends JPlugin
     public function buildHTML($avatar,$gravatar_profile,$email,$size)
     {
                 $gravurl=$avatar.md5( strtolower( trim( $email ) ) )."?d=".urlencode($this->default )."&s=".$size;
-                $str=  file_get_contents("$gravatar_profile".md5($email).".php");
+                $str=  @file_get_contents("$gravatar_profile".md5($email).".php");
                 $profile=  unserialize($str);
                  
                 if ( is_array( $profile ) && isset( $profile['entry'] ) )
@@ -94,11 +95,11 @@ Class PlgContentGravatar extends JPlugin
                  else
                 {
             
-                //echo '<img src=' . $grav_url  . 'alt="" />';
+                
                 $default_url="$avatar".md5( strtolower( trim( $email ) ) );
                 $selection=  $this->params->get('default','identicon');
-                $default_url=$default_url."?d=".$selection;
-                //echo '<img src="' . "$default_url". '" alt =""/>';
+                $default_url=$default_url."?d=".$selection."&s=".$size;
+               
              
                 $html[] = '<span class="gravatar">';
                 $html[] = JHtml::_('image', $default_url, JText::_('MY_AVATAR'), null, true);
