@@ -2,17 +2,17 @@
 
 /**
  * @package     Joomla.Plugin
- * @subpackage  Authentication.joomla
+ * @subpackage  Content.joomla
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 defined('_JEXEC') or die; // Stopping Unauthorized access 
 /**
- * Joomla Authentication plugin
+ * Joomla Content plugin
  *
  * @package     Joomla.Plugin
- * @subpackage  Authentication.joomla
+ * @subpackage  Content.joomla
  * @since       1.5
  */
 Class PlgContentGravatar extends JPlugin
@@ -30,20 +30,21 @@ Class PlgContentGravatar extends JPlugin
     {
     if($context=='com_content.featured')
         {
-            $uri=JURI::base();
-            $array[]=(JString::parse_url($uri));
+            //$uri=JURI::base();
+            //$array[]=(JString::parse_url($uri));
+            $array=JURI::getInstance()->getScheme(); 
             $size=$this->params->get('size',$this->defaultsize);
             $emailid=$row->author_email;
             
             
-            if ($array[0]['scheme']=='http')
+            if ($array=='http')
             {
                 $html[]=  $this->buildHTML($this->GRAVATAR_SERVER,  $this->default,$emailid,$size);
                 
                 
             }
             
-            if($array[0]['scheme']=='https')
+            if($array=='https')
             {
                
                 $html[]=  $this->buildHTML($this->GRAVATAR_SECURE_SERVER,  $this->securedefault,$emailid,$size);
